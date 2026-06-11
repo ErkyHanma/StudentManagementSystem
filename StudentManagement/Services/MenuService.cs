@@ -55,7 +55,7 @@ namespace StudentManagement.Services
             Console.WriteLine("╔═══════════════════════════════════════╗");
             Console.WriteLine("║    ITLA Student Management System     ║");
             Console.WriteLine("╠═══════════════════════════════════════╣");
-            Console.WriteLine($"║  Teacher: {_teacher.Name,-29}║");
+            Console.WriteLine($"║ Teacher: {_teacher.Name,-29}║");
             Console.WriteLine("╠═══════════════════════════════════════╣");
             Console.WriteLine("║  [1]  Manage subjects                 ║");
             Console.WriteLine("║  [2]  Manage groups                   ║");
@@ -209,14 +209,14 @@ namespace StudentManagement.Services
             string studentId = Console.ReadLine()?.Trim() ?? "";
 
             var search = group.FindStudent(studentId);
-            if (!search.IsSuccess || !search.Data)
+            if (!search.IsSuccess)
             {
                 Alert(search.Message);
                 PauseAndContinue();
                 return;
             }
 
-            Student student = !search.Data;
+            Student student = (Student)search.Data!;
 
             Console.WriteLine();
             Console.WriteLine("  Grade type:");
@@ -338,7 +338,6 @@ namespace StudentManagement.Services
         {
             Console.Write("\n  Press Enter to return to menu...");
             Console.ReadLine();
-            // Console.Clear() is called at the top of the while loop in Init()
         }
 
         private int ReadIntInRange(string message, int min, int max)
