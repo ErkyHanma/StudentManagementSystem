@@ -110,7 +110,8 @@ namespace StudentManagement.Services
             Console.WriteLine();
             Console.WriteLine("  [1] Add group");
             Console.WriteLine("  [2] List groups");
-            Console.WriteLine("  [3] Back");
+            Console.WriteLine("  [3] List Approved Students");
+            Console.WriteLine("  [4] Back");
             Console.Write("\n  Option: ");
             string op = Console.ReadLine()?.Trim() ?? "";
 
@@ -128,6 +129,18 @@ namespace StudentManagement.Services
                 subject.ShowGroups();
             }
             else if (op == "3")
+            {
+                var group = SelectGroup();
+                if (group == null) return;
+
+                group.ShowStudentScore();
+                var approvalRate = group.CalculateApprovedStudents();
+
+                Console.WriteLine($"\n  Approval rate: {approvalRate:F2}%");
+
+
+            }
+            else if (op == "4")
             {
                 return;
             }
